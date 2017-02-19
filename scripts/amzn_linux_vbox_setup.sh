@@ -52,7 +52,10 @@ install_vbox_additions() {
     rm -f $vbox_add_filename
 
     # module install will fail to load vboxguest.ko (missing device) so will test for installation instead
-    [ $(ls /lib/modules/${kern_ver}/misc/ | grep -c vbox) -gt 2 ] && failed=0
+    if [ $(ls /lib/modules/${kern_ver}/misc/ | grep -c vbox) -gt 2 ]; then
+        failed=0
+        echo "INFO: The installation finished with error, most likely due to vbox modules not able to load in a system runnign outside VirtualBox, however the modules are present and this should be safe to assume as good."
+    fi
 
     return ${failed}
 }
