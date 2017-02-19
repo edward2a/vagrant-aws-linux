@@ -2,8 +2,9 @@
 
 
 ### Sanity checks ###
-# jq?
+# jq? curl?
 [ $(which jq 2>/dev/null) ] || { echo 'ERROR: I cannot read json without jq ;)'; exit 1; }
+[ $(which curl 2>/dev/null) ] || { echo 'ERROR: Please give me curl to find who am I in the world.'; exit 1; }
 
 # silly quuestion but, is vagrant installed?
 [ $(which vagrant 2>/dev/null) ] || { echo 'ERROR: I cannot find vagrant... am I going nuts?'; exit 1; }
@@ -27,7 +28,8 @@ mkdir temp
 
 key_name="temp-key-$((RANDOM))$((RANDOM))"
 sg_name="temp-sg-$((RANDOM))"
-export key_name sg_name
+my_ip=$(curl -s 'http://api.ipify.org')
+export key_name sg_name my_ip
 
 echo 'INFO: Creating AWS key pair'
 aws ec2 create-key-pair --key-name ${key_name} | jq -r .KeyMaterial > temp/ssh_key.priv && echo ${key_name}
@@ -35,6 +37,9 @@ aws ec2 create-key-pair --key-name ${key_name} | jq -r .KeyMaterial > temp/ssh_k
 echo 'INFO: Creating AWS security group'
 aws ec2 create-security-group --group-name ${sg_name} --description ${sg_name} | jq -r .GroupId | tee temp/group.id
 
+echo 'INFO: Authorizing AWS security group ingress'
+aws ec2 authorize-security-group-ingress --group-name ${sg_name} --cidr ${my_ip}/32 --protocol tcp --port 22 && echo 'INFO: OK'
+
 
 ### Launch vagrant build
-#vagrant up # need to put the security-group-name in the yaml or load it somehow
+vagrant up
