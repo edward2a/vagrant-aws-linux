@@ -32,7 +32,8 @@ my_ip=$(curl -s 'http://api.ipify.org')
 export key_name sg_name my_ip
 
 echo 'INFO: Creating AWS key pair'
-aws ec2 create-key-pair --key-name ${key_name} | jq -r .KeyMaterial > temp/ssh_key.priv && echo ${key_name}
+aws ec2 create-key-pair --key-name ${key_name} | jq -r .KeyMaterial > temp/ssh_key.priv && \
+ echo ${key_name} | tee temp/ssh_key.id
 
 echo 'INFO: Creating AWS security group'
 aws ec2 create-security-group --group-name ${sg_name} --description ${sg_name} | jq -r .GroupId | tee temp/group.id
