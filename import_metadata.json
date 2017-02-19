@@ -1,0 +1,17 @@
+{
+  "name": "realreadme/amazon2016.09",
+  "description": "This box contains Amazon Linux 2016.09.",
+  "versions": [
+    {
+      "version": "1.0.0",
+      "providers": [
+        {
+          "name": "virtualbox",
+          "url": "file://@@@IMPORT_PATH@@@/amazon.box",
+          "checksum_type": "sha1",
+          "checksum": "@@@CHECKSUM@@@"
+        }
+      ]
+    }
+  ]
+}
