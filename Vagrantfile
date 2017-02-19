@@ -4,7 +4,26 @@
 require 'yaml'
 
 meta = YAML.load(open('metadata.yaml'))
-puts meta
+
+# check required info
+if ENV['sg_name'] == nil and meta['security_groups'] == nil
+  begin
+    meta['security_groups'] = open('temp/group.id').read().strip()
+  rescue
+    abort('Missing security group information.')
+  end
+end
+
+if ENV['key_name'] == nil and meta['keypair_name'] == nil
+  begin
+    meta['keypair_name'] = open('temp/ssh_key.id').read().strip()
+  rescue
+    abort('Missing ssh key information.')
+  end
+end
+
+# print config
+puts 'Using the following configuration:', meta
 
 Vagrant.configure("2") do |config|
 
