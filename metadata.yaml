@@ -1,0 +1,11 @@
+---
+aws_profile: rrm
+region: eu-west-1
+image_id: ami-70edb016
+instance_type: t2.micro
+#keypair_name:
+#security_groups:
+#  - vgt-test
+#public_ip: true
+#subnet_id: subnet-12341234
+...
