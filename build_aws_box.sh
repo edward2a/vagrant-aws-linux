@@ -99,7 +99,7 @@ vagrant halt i_export
 # THE DYNAMIC IMAGE SIZE IS HARDCODED TO 8GiB #
 ###############################################
 echo "INFO: Decompressing image and converting to VirtualBox format"
-gunzip --keep -c temp/box.img.gz | VBoxManage convertfromraw stdin temp/box.vmdk 8589934592 --format VMDK
+gunzip --keep -c temp/box.img.gz | VBoxManage convertfromraw stdin temp/box-disk1.vmdk 8589934592 --format VMDK
 
 echo "INFO: Preparing import files..."
 mkdir realreadme
