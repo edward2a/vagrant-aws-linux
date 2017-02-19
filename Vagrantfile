@@ -23,8 +23,11 @@ Vagrant.configure("2") do |config|
     aws.subnet_id = meta['subnet_id']
   end
 
-  config.vm.provision "shell", inline: <<-SHELL
-    ls -l /etc
-  SHELL
+#  config.vm.provision "shell", inline: <<-SHELL
+#    ls -l /etc
+#  SHELL
+
+  config.vm.provision "shell",
+    path: 'scripts/amzn_linux_vbox_setup.sh'
 
 end
