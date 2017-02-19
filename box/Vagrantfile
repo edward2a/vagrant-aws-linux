@@ -1,0 +1,10 @@
+# base mac, use actual Vagrantfile for config (according to hashicorp guys)
+
+Vagrant::Config.run do |config|
+  config.vm.base_mac = "080027C9C073"
+end
+
+# Load include vagrant file if it exists after the auto-generated
+# so it can override any of the settings
+include_vagrantfile = File.expand_path("../include/_Vagrantfile", __FILE__)
+load include_vagrantfile if File.exists?(include_vagrantfile)
