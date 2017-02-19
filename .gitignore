@@ -2,3 +2,5 @@
 *.log
 .vagrant*
 temp
+box/box.vmdk
+*.vmdk
