@@ -36,11 +36,19 @@ aws ec2 create-key-pair --key-name ${key_name} | jq -r .KeyMaterial > temp/ssh_k
  echo ${key_name} | tee temp/ssh_key.id
 
 echo 'INFO: Creating AWS security group'
-aws ec2 create-security-group --group-name ${sg_name} --description ${sg_name} | jq -r .GroupId | tee temp/group.id
+aws ec2 create-security-group --group-name ${sg_name} --description ${sg_name} | jq -r .GroupId | tee temp/group.id && \
+ echo ${sg_name} | tee temp/group.name
 
 echo 'INFO: Authorizing AWS security group ingress'
 aws ec2 authorize-security-group-ingress --group-name ${sg_name} --cidr ${my_ip}/32 --protocol tcp --port 22 && echo 'INFO: OK'
 
 
 ### Launch vagrant build
-vagrant up
+echo "INFO: Launching AWS box and provisioining system updates"
+vagrant up --provision-with system-upgrade i_setup
+
+echo "INFO: Waiting 5 min for system to reboot"
+sleep 300s
+
+echo "INFO: Provisioning AWS box with vbox setup"
+vagrant provision --provision-with vbox-setup i_setup
