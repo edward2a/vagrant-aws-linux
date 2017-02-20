@@ -1,7 +1,10 @@
 # base mac, use actual Vagrantfile for config (according to hashicorp guys)
+# Also including password, I still did not learn how to distribute a private key to login
 
-Vagrant::Config.run do |config|
+Vagrant.configure("2") do |config|
   config.vm.base_mac = "080027C9C073"
+  config.ssh.username = "vagrant"
+  config.ssh.password = "vagrant"
 end
 
 # Load include vagrant file if it exists after the auto-generated
