@@ -9,6 +9,9 @@
 # silly quuestion but, is vagrant installed?
 [ $(which vagrant 2>/dev/null) ] || { echo 'ERROR: I cannot find vagrant... am I going nuts?'; exit 1; }
 
+# aws credentials ?
+[ $(aws sts get-caller-identity) ] || { echo "ERROR: Did not find aws credentials, can't do magic :P"; exit 1; }
+
 # check for aws plugin and install it if not there
 vagrant_aws_installed=$(vagrant plugin list | grep -c 'vagrant-aws')
 if [ ${vagrant_aws_installed} == 0 ]; then
