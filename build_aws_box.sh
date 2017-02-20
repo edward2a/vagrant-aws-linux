@@ -10,7 +10,7 @@
 [ $(which vagrant 2>/dev/null) ] || { echo 'ERROR: I cannot find vagrant... am I going nuts?'; exit 1; }
 
 # aws credentials ?
-[ $(aws sts get-caller-identity) ] || { echo "ERROR: Did not find aws credentials, can't do magic :P"; exit 1; }
+aws sts get-caller-identity &>/dev/null || { echo "ERROR: Did not find aws credentials, can't do magic :P"; exit 1; }
 
 # check for aws plugin and install it if not there
 vagrant_aws_installed=$(vagrant plugin list | grep -c 'vagrant-aws')
@@ -76,8 +76,8 @@ sleep 10s
 
 
 ### Launch build for i_export
-ehco "INFO: Launching AWS box for image export"
-vagrant up --no-provision
+echo "INFO: Launching AWS box for image export"
+vagrant up --no-provision i_export
 
 i_export_id=$(cat .vagrant/machines/i_export/aws/id)
 i_export_ip=$(aws ec2 describe-instances --instance-ids ${i_export_id} | jq -r .Reservations[0].Instances[0].PublicIpAddress)
