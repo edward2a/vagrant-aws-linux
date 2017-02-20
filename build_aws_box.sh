@@ -56,8 +56,9 @@ sleep 300s
 echo "INFO: Provisioning AWS box with vbox setup"
 vagrant provision --provision-with vbox-setup i_setup
 
-echo "INFO: Shutting down AWS setup box"
+echo "INFO: Shutting down AWS setup box and waiting for it to be fully off"
 vagrant halt i_setup
+sleep 300s
 ### Vagrant build end for i_setup
 
 
