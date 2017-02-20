@@ -108,7 +108,7 @@ gunzip --keep -c temp/box.img.gz | VBoxManage convertfromraw stdin box/box-disk1
 echo "INFO: Preparing import files..."
 mkdir realreadme
 tar -czf realreadme/amazon2016.09.pkg -C box $(ls box)
-sha1_sum=$(sha1sum realreadme/amazon-2016-09.pkg | awk '{ print $1 }')
+sha1_sum=$(sha1sum realreadme/amazon2016.09.pkg | awk '{ print $1 }')
 sed -e "s/@@@CHECKSUM@@@/${sha1_sum}/" -e "s|@@@IMPORT_PATH@@@|${PWD}|" import_metadata.json > import.json
 
 echo "INFO: Box export process finished"
