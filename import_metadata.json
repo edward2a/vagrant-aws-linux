@@ -7,7 +7,7 @@
       "providers": [
         {
           "name": "virtualbox",
-          "url": "file://@@@IMPORT_PATH@@@/realreadme/amazon2016.09.pkg",
+          "url": "file://@@@IMPORT_PATH@@@/realreadme/amazon2016.09.box",
           "checksum_type": "sha1",
           "checksum": "@@@CHECKSUM@@@"
         }
