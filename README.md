@@ -6,8 +6,8 @@ I have found myself testing chef recipes (and other stuff) that required use of 
 AWS EC2 instances run on top of Xen, on pretty generic virtual hardware definition (see details at the bottom).
 For HVM type instances, which are full VMs (ie. like a physical system), the boot process is standard, involving a BIOS, a boot loader, a boot sector, (etc) and associated software.
 
-Based on this, I decieded to make an imagea available for my local testing.
-After messing up a bit with the configuraitons, I successfully exported a disk image (with dd) and imported that into VirtualBox, then created a vagrant image which served my purpose.
+Based on this, I decieded to make an image available for my local testing.
+After messing up a bit with the configurations, I successfully exported a disk image (with dd) and imported that into VirtualBox, then created a vagrant image which served my purpose.
 
 I consider this may be useful for more people in similar situations as this gives the following benefits:
   - enable local development on AWS linux
